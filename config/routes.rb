@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get "test", to: 'test#test'
+  get "secret_stuff", to: 'must_be_logged_in#secret_stuff'
   post "login", to: 'sessions#create'
 end
