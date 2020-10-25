@@ -11,7 +11,8 @@ class MustBeLoggedInController < ApplicationController
     private
     
     def logged_in_user
-        decoded_payload = TokenAuthorizationService.decode_payload_from_encoded_token(request.headers["Authorization"])
+        encoded_token = cookies.encrypted[:auth_token]
+        decoded_payload = TokenAuthorizationService.decode_payload_from_encoded_token(encoded_token)
         return nil if decoded_payload.empty?
         
         user_id = decoded_payload[0]['user_id']

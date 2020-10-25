@@ -2,17 +2,10 @@ class TokenAuthorizationService
     require 'jwt'
 
     JWT_SECRET = 'othersecresdf'
-    REFRESH_TOKEN_EXPIRATION_TIME = (Time.now + 2.days).to_i
-    AUTHORIZATION_TOKEN_EXPIRATION_TIME = (Time.now + 1.minutes).to_i
+    AUTHORIZATION_TOKEN_EXPIRATION_TIME = (Time.now + 3.days).to_i
 
     def self.encode_authorization_token_from_payload(payload)
         payload[:exp] = AUTHORIZATION_TOKEN_EXPIRATION_TIME
-        JWT.encode(payload, JWT_SECRET)
-    end
-
-    def self.encode_refresh_token_from_payload(payload)
-        payload[:exp] = REFRESH_TOKEN_EXPIRATION_TIME
-        payload[:httponly] = true
         JWT.encode(payload, JWT_SECRET)
     end
 
@@ -24,7 +17,7 @@ class TokenAuthorizationService
 
         begin
             JWT.decode(encoded_token, JWT_SECRET, true, algorithm: 'HS256')
-        rescue JWT::DecodeError
+        rescue JWT::DecodeError, JWT::ExpiredSignature
             []
         end
     end
