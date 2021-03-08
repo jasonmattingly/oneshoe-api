@@ -34,7 +34,7 @@ module OneshoeApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
+    config.hosts << "4789d877b967.ngrok.io"
     # Required for session based authentication
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_oneshoe', expire_after: 2.weeks 

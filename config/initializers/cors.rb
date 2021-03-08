@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000' # Client domain
+    origins 'https://obscure-meadow-11084.herokuapp.com' # Client domain
 
     resource '*',
       headers: :any,
